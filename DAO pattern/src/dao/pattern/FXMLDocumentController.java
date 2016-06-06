@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,41 +25,54 @@ import javafx.scene.control.TextField;
  * @author kmhasan
  */
 public class FXMLDocumentController implements Initializable {
-    
+
     @FXML
     private TextField idField;
     @FXML
     private TextField nameField;
     @FXML
     private TextField cgpaField;
+    private StudentDAO implementation;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        implementation = new StudentDAOFileImplementation();
+        
+        List<Student> students = implementation.getAllStudents();
+        for (Student student: students)
+            System.out.println(student);
+    }
 
     @FXML
     private void handleSubmitAction(ActionEvent event) {
-        String DB_URL = "jdbc:mysql://172.17.0.134/studentdb";
-        String DB_USER = "summer2016aj";
-        String DB_PASS = "java";
-        try {
-            Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-            System.out.println("Connected to the Database");
+        int id = Integer.parseInt(idField.getText());
+        String name = nameField.getText();
+        double cgpa = Double.parseDouble(cgpaField.getText());
+
+        Student student = new Student(id, name, cgpa);
+        implementation.addStudent(student);
+        
+        /*
+         String DB_URL = "jdbc:mysql://172.17.0.134/studentdb";
+         String DB_USER = "summer2016aj";
+         String DB_PASS = "java";
+         try {
+         Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+         System.out.println("Connected to the Database");
             
-            int id = Integer.parseInt(idField.getText());
-            String name = nameField.getText();
-            double cgpa = Double.parseDouble(cgpaField.getText());
+         int id = Integer.parseInt(idField.getText());
+         String name = nameField.getText();
+         double cgpa = Double.parseDouble(cgpaField.getText());
             
-            Statement statement = connection.createStatement();
+         Statement statement = connection.createStatement();
             
-            String query = "INSERT INTO student VALUES(" + id + ", '" + name + "', "+ cgpa + ")";
+         String query = "INSERT INTO student VALUES(" + id + ", '" + name + "', "+ cgpa + ")";
             
-            statement.executeUpdate(query);
-        } catch (SQLException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         statement.executeUpdate(query);
+         } catch (SQLException ex) {
+         Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         */
     }
 
-    
 }
