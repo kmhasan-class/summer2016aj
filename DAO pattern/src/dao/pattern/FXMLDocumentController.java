@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,11 +37,13 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        implementation = new StudentDAOFileImplementation();
+        implementation = new StudentDAOMySQLImplementation();
         
         List<Student> students = implementation.getAllStudents();
-        for (Student student: students)
-            System.out.println(student);
+//        for (Student student: students)
+//            System.out.println(student);
+//        students.forEach(student -> System.out.println(student));
+        students.forEach(System.out::println);
     }
 
     @FXML
