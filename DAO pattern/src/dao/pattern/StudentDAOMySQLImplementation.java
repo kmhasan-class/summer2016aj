@@ -22,31 +22,13 @@ import java.util.logging.Logger;
  * @author kmhasan
  */
 public class StudentDAOMySQLImplementation implements StudentDAO {
-    private Connection connection;
-    private PreparedStatement listStudentsStatement;
-    private PreparedStatement addStudentStatement;
-    private Map<String, String> queries;
-    
     public StudentDAOMySQLImplementation() {
-        String DB_URL = "jdbc:mysql://172.17.0.134/studentdb";
-        String DB_USER = "summer2016aj";
-        String DB_PASS = "java";
-    
-        queries = new QueryReader().getQueries();
-        
-        try {
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-            listStudentsStatement = connection.prepareStatement(queries.get("LIST_STUDENTS"));
-            addStudentStatement = connection.prepareStatement(queries.get("ADD_STUDENT"));
-            System.out.println("Connected to the Database");
-        } catch (SQLException ex) {
-            Logger.getLogger(StudentDAOMySQLImplementation.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     @Override
     public void addStudent(Student student) {
         try {
+            PreparedStatement addStudentStatement = MySQLConnectionSingleton.getAddStudentStatement();
             addStudentStatement.setInt(1, student.getId());
             addStudentStatement.setString(2, student.getName());
             addStudentStatement.setDouble(3, student.getCgpa());
@@ -61,6 +43,7 @@ public class StudentDAOMySQLImplementation implements StudentDAO {
         List<Student> students = new ArrayList<>();
         
         try {
+            PreparedStatement listStudentsStatement = MySQLConnectionSingleton.getListStudentsStatement();
             ResultSet resultSet = listStudentsStatement.executeQuery();
 
             while (resultSet.next()) {
