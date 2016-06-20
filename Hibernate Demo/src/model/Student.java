@@ -7,6 +7,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -21,7 +23,10 @@ public class Student {
 
     @Id
     private int id;
+    @Column(name = "StudentName", length = 40)
     private String name;
+    @Embedded
+    private Address address;
     @OneToMany
     private List<Course> registeredCourses;
     
@@ -54,6 +59,14 @@ public class Student {
     @Override
     public String toString() {
         return "Student{" + "id=" + id + ", name=" + name + ", registeredCourses=" + registeredCourses + '}';
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Address getAddress() {
+        return address;
     }
 
 

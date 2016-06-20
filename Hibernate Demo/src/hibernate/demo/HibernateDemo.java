@@ -8,6 +8,7 @@ package hibernate.demo;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
+import model.Address;
 import model.Course;
 import model.Student;
 import org.hibernate.Session;
@@ -47,7 +48,15 @@ public class HibernateDemo {
              session.save(c3);
              session.save(s);
              */
+            /*
+            Student student = new Student(5, "John Doe");
+            student.setAddress(new Address("123 Road", "Dhaka", "Bangladesh", "1234"));
+            session.save(student);
+            */
             students = session.createCriteria(Student.class).list();
+            Student student = students.get(0);
+            Address address = student.getAddress();
+            System.out.println(address);
             transaction.commit();
         } catch (Exception e) {
             System.err.println(e);
