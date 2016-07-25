@@ -27,22 +27,39 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("I got called!");
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            String username = request.getParameter("username");
-            if (username.equals("abul"))
-                out.println("<h1>Hello, " + request.getParameter("username") + "!</h1>");
-            else out.println("<h1>Sorry we cannot let you in</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        LoginService loginService = new LoginService();
+        boolean isValidUser = loginService.authenticate(username, password);
+        if (isValidUser) {
+            User user = loginService.getUserDetails(username);
+            System.out.println(user.getFullname());
+            response.sendRedirect("greetings.jsp");
+        } else response.sendRedirect("failed.jsp");
+            /*
+         response.setContentType("text/html;charset=UTF-8");
+         try (PrintWriter out = response.getWriter()) {
+         out.println("<!DOCTYPE html>");
+         out.println("<html>");
+         out.println("<head>");
+         out.println("<title>Servlet LoginServlet</title>");            
+         out.println("</head>");
+         out.println("<body>");
+         String username = request.getParameter("username");
+         String password = request.getParameter("password");
+         LoginService loginService = new LoginService();
+         boolean isValidUser = loginService.authenticate(username, password);
+         if (isValidUser)
+         out.println("<h1>Hello, " + request.getParameter("username") + "!</h1>");
+         else out.println("<h1>Sorry we cannot let you in</h1>");
+         //            if (username.equals("abul"))
+         //                out.println("<h1>Hello, " + request.getParameter("username") + "!</h1>");
+         //            else out.println("<h1>Sorry we cannot let you in</h1>");
+         out.println("</body>");
+         out.println("</html>");
+         }
+         */ {
+            
         }
     }
 
