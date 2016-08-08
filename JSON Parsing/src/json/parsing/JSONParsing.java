@@ -13,6 +13,8 @@ import java.util.logging.Logger;
 import org.primefaces.json.JSONException;
 import org.primefaces.json.JSONObject;
 
+
+
 /**
  *
  * @author kmhasan
@@ -25,11 +27,11 @@ public class JSONParsing {
             RandomAccessFile input = new RandomAccessFile("student.json", "r");
             String line;
             String jsonString = "";
-            
+
             while ((line = input.readLine()) != null) {
                 jsonString = jsonString + line.trim();
             }
-            
+
             jsonObject = new JSONObject(jsonString);
             String name = (String) jsonObject.get("name");
             String id = (String) jsonObject.get("id");
@@ -40,9 +42,8 @@ public class JSONParsing {
         } catch (IOException ex) {
             Logger.getLogger(JSONParsing.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
 
     /**
      * @param args the command line arguments
@@ -50,5 +51,5 @@ public class JSONParsing {
     public static void main(String[] args) throws JSONException {
         new JSONParsing();
     }
-    
+
 }
