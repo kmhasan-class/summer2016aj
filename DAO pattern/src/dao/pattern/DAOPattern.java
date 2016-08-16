@@ -24,6 +24,7 @@ public class DAOPattern extends Application {
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
+        stage.setFullScreen(true);
         stage.show();
     }
 
