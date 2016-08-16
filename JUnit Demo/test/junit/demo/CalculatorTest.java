@@ -57,11 +57,6 @@ public class CalculatorTest {
         Calculator instance = new Calculator();
         int expResult = 30;
         int result = instance.add(a, b);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(CalculatorTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
         Assert.assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
