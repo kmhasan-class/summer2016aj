@@ -5,6 +5,7 @@
  */
 package dao.pattern;
 
+import Grade;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,6 +26,8 @@ public class DAOPattern extends Application {
         System.out.println("Hello");
         stage.setScene(scene);
         stage.show();
+        
+        Grade g = Grade.A_PLUS;
     }
 
     /**
