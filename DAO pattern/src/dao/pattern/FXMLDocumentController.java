@@ -20,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -33,7 +34,10 @@ public class FXMLDocumentController implements Initializable {
     private TextField nameField;
     @FXML
     private TextField cgpaField;
+    @FXML
+    private Text submitActionMessageText;
     private StudentDAO implementation;
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -53,6 +57,8 @@ public class FXMLDocumentController implements Initializable {
         double cgpa = Double.parseDouble(cgpaField.getText());
 
         Student student = new Student(id, name, cgpa);
+        submitActionMessageText.setText(student.getMessage());
+        
         implementation.addStudent(student);
         
         /*
