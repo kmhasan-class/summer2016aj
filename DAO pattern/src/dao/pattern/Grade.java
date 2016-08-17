@@ -13,7 +13,8 @@ package dao.pattern;
 public enum Grade {
     A("A",3.75),
     A_MINUS("A-",3.50),
-    A_PLUS("A+",4.00);
+    A_PLUS("A+",4.00),
+    B_PLUS("B+",3.25);
     private String letterGrade;
     private double numericGrade;
 
